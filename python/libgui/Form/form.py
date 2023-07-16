@@ -99,7 +99,7 @@ class FormModule2:
             print(f"[{self.module_name}] Brightness: {self.__brihtness}")
 
     def __build(self, output_widget):
-        self.__clean()
+        self.__clean(output_widget)
         current_dir = os.getcwd()
         try:
             os.chdir(self.__cpp_dir)
@@ -127,13 +127,16 @@ class FormModule2:
             clear_output(wait=True)
             print(f"[{self.__module_name}] Complete Run: Brightness={brightness}: {datetime.datetime.now()}")
 
-    def __clean(self):
+    def __clean(self, output_widget):
         current_dir = os.getcwd()
         try:
             os.chdir(self.__cpp_dir)
             subprocess.run(["rm", "-rf", "build"], check=True)
         finally:
             os.chdir(current_dir)
+        with output_widget:
+            clear_output(wait=True)
+            print(f"[{self.__module_name}] Complete Clean: {datetime.datetime.now()}")
     
     def create_form(self, input_path, output_path):
         # create slider
@@ -163,7 +166,7 @@ class FormModule2:
 
         # create button5
         button5 = widgets.Button(description="Clean")
-        button5.on_click(lambda _: self.__clean())
+        button5.on_click(lambda _: self.__clean(output_widget2))
 
         form_items = [
             slider,
