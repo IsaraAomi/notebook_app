@@ -1,6 +1,6 @@
 import os, datetime, subprocess
 import ipywidgets as widgets
-from IPython.display import display, clear_output, HTML
+from IPython.display import display, clear_output
 
 from python.module1 import *
 from python.libmain.Image.process import *
